@@ -25,6 +25,6 @@ This project uses [Next.js](https://nextjs.org/) and [pnpm](https://pnpm.io/) fo
 
 3. Serve the static build:
    ```bash
-   ─ pnpx serve@latest out
+   pnpx serve@latest out
    ```
 
