@@ -1,45 +1,30 @@
-# test-fumadocs
+# CODINGTUBE DOCS
 
-This is a Next.js application generated with
-[Create Fumadocs](https://github.com/fuma-nama/fumadocs).
+This project uses [Next.js](https://nextjs.org/) and [pnpm](https://pnpm.io/) for dependency management.
 
-Run development server:
+## Prerequisites
+- Node.js >= 18
+- pnpm installed globally (`npm install -g pnpm`)
 
-```bash
-npm run dev
-# or
-pnpm dev
-# or
-yarn dev
-```
+## Installation
 
-Open http://localhost:3000 with your browser to see the result.
+1. Install dependencies:
+   ```bash
+   pnpm install
+   ```
 
-## Explore
+2. Start the development server:
+   ```bash
+   pnpm dev
+   ```
 
-In the project, you can see:
+1. Static Build:
+   ```bash
+   pnpm build
+   ```
 
-- `lib/source.ts`: Code for content source adapter, [`loader()`](https://fumadocs.dev/docs/headless/source-api) provides the interface to access your content.
-- `app/layout.config.tsx`: Shared options for layouts, optional but preferred to keep.
+3. Serve the static build:
+   ```bash
+   ─ pnpx serve@latest out
+   ```
 
-| Route                     | Description                                            |
-| ------------------------- | ------------------------------------------------------ |
-| `app/(home)`              | The route group for your landing page and other pages. |
-| `app/docs`                | The documentation layout and pages.                    |
-| `app/api/search/route.ts` | The Route Handler for search.                          |
-
-### Fumadocs MDX
-
-A `source.config.ts` config file has been included, you can customise different options like frontmatter schema.
-
-Read the [Introduction](https://fumadocs.dev/docs/mdx) for further details.
-
-## Learn More
-
-To learn more about Next.js and Fumadocs, take a look at the following
-resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js
-  features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [Fumadocs](https://fumadocs.vercel.app) - learn about Fumadocs
