@@ -1,0 +1,53 @@
+---
+title: Record
+description: Tipo para construir objetos
+---
+
+`Record` es un tipo de utilidad (utility type) que permite construir objetos definiendo los tipos de las claves y los valores.
+
+Por ejemplo `Record<string, number>` permite definir un objeto cuyas claves serán `strings` y los valoes del tipo `number`.
+
+```ts
+const scores: Record<string, number> = {
+  Alice: 10,
+  Bob: 15,
+  Charlie: 12
+}
+```
+
+Su verdadero valor radica cuando se lo utiliza con tipos más complejos, como por ejemplo:
+
+```ts
+type Players = "Alice" | "Bob" | "Charlie";
+
+interface Scores {
+  level: string;
+  score: number;
+  lives: number;
+}
+
+const scores: Record<Players, Scores> = {
+  Alice: {
+    level: "Forest",
+    score: 1200,
+    lives: 3
+  },
+  Bob: {
+    level: "Desert",
+    score: 950,
+    lives: 2
+  },
+  Charlie: {
+    level: "Castle",
+    score: 1500,
+    lives: 1
+  }
+};
+
+```
+
+En el ejemplo anterior, ¿que te puede garantizar Typescript?:
+
+- Que no puedes olvidarte de ningún jugador.
+- Que no puedes agregar jugadores extras no definidos en Players.
+- Que cada jugador tiene un objeto con el `level`, `score` y `lives` con sus respectivos tipos.
