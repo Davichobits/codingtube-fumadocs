@@ -2,6 +2,7 @@ import {
   defineConfig,
   defineDocs,
   frontmatterSchema,
+  defineCollections,
   metaSchema,
 } from 'fumadocs-mdx/config';
 
@@ -20,4 +21,9 @@ export default defineConfig({
   mdxOptions: {
     // MDX options
   },
+});
+
+export const blogPosts = defineCollections({
+  type: 'doc',
+  dir: 'content/blog',
 });

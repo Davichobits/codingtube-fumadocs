@@ -1,0 +1,88 @@
+---
+title: Métodos útiles de console
+description: Descubre cómo aprovechar al máximo los métodos de console para depurar, organizar y optimizar la salida en la consola de JavaScript.
+date: 2025-07-08
+author: David Ruiz
+---
+
+## Métodos de `console`
+`console` es una herramienta poderosa en JavaScript que permite depurar y que rara vez es aprovechada al máximo. Aquí te mostramos algunos de los métodos más útiles:
+
+| Método | Descripción | Ejemplo |
+|--------|-------------|---------|
+| `console.log()` | Imprime mensajes generales en la consola. | `console.log("Mensaje general");` |
+| `console.warn()` | Imprime advertencias en la consola. Útil para señalar que algo no está bien, pero no es crítico. | `console.warn("Esto es una advertencia");` |
+| `console.error()` | Imprime errores en la consola. Útil para señalar fallos que necesitan atención inmediata. | `console.error("Esto es un error");` |
+| `console.info()` | Imprime información general en la consola. Útil para proporcionar contexto o detalles adicionales. | `console.info("Esto es información");` |
+| `console.debug()` | Imprime mensajes de depuración en la consola. Útil para detalles técnicos. | `console.debug("Esto es un mensaje de depuración");` |
+| `console.assert()` | Realiza aserciones. Si la condición es falsa, imprime un error. | `console.assert(1 === 2, "La aserción falló");` |
+| `console.trace()` | Imprime la pila de llamadas para rastrear el flujo de ejecución. | `console.trace("Rastreo de pila");` |
+| `console.clear()` | Limpia la consola. | `console.clear();` |
+| `console.memory` | Muestra información sobre el uso de memoria (solo en algunos navegadores). | `console.memory` |
+
+---
+
+## Más métodos
+Además de los métodos básicos, existen otros métodos útiles para depurar y organizar la salida en la consola:
+
+### `console.table()`
+Imprime datos en forma de tabla. Útil para visualizar arrays de objetos.
+```js
+const personas = [
+  { nombre: "Alice", edad: 30 },
+  { nombre: "Bob", edad: 25 },
+  { nombre: "Charlie", edad: 35 }
+];
+console.table(personas);
+```
+
+### `console.group()` / `console.groupEnd()`
+Agrupa mensajes en la consola para organizarlos mejor.
+```js
+console.group("Grupo de mensajes");
+console.log("Mensaje 1");
+console.log("Mensaje 2");
+console.groupEnd();
+```
+
+### `console.time()` / `console.timeEnd()`
+Mide el tiempo de ejecución de un bloque de código.
+```js
+console.time("Tiempo de ejecución");
+// Código a medir
+console.timeEnd("Tiempo de ejecución");
+```
+
+### `console.dir()`
+Imprime un objeto en formato interactivo para explorarlo.
+```js
+const persona = {
+  nombre: "Alice",
+  edad: 30,
+  saludar: function() {
+    console.log("Hola, soy " + this.nombre);
+  }
+};
+console.dir(persona);
+```
+
+### `console.count()`
+Cuenta el número de veces que se ha llamado a un identificador.
+```js
+function miFuncion() {
+  console.count("miFuncion");
+}
+miFuncion();
+miFuncion();
+```
+
+### `console.countReset()`
+Restablece el contador de un identificador.
+```js
+console.countReset("miFuncion");  
+function miFuncion() {
+  console.count("miFuncion");
+} 
+miFuncion();
+miFuncion();
+```
