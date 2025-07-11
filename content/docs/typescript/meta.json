@@ -1,6 +1,6 @@
 {
   "title": "Typescript",
   "description": "Javascript con tipado.",
-  "pages": ["record", "pick"],
+  "pages": ["index", "...(generated)"],
   "root": true
 }
