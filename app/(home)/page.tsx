@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { logoHTML, logoCSS, logoTypescript } from './logos';
+import { logoHTML, logoCSS, logoJavascript, logoTalwind, logoReact, logoDart, logoTypescript } from './logos';
 import { FeatureItem } from '@/types/types';
 import { TechCard } from '@/components/tech-card';
 
@@ -20,19 +20,19 @@ const featureList: FeatureItem[] = [
   },
   {
     title: "Javascript",
-    svg: logoHTML,
+    svg: logoJavascript,
     linkYoutube: "https://www.youtube.com/watch?v=3oSeQb94Ga4&list=PLJubkp8BnTJsDgWXWcS1Z0VDV7rAOqbU4",
     description: "Aprende a dar funcionalidad e interactividad a tu página web con Javascript.",
   },
   {
     title: "Tailwind",
-    svg: logoHTML,
+    svg: logoTalwind,
     linkYoutube: "https://www.youtube.com/watch?v=gvdvuGSksDU&list=PLJubkp8BnTJu9khizC7ywblms1YzdLO3g",
     description: "Framework de CSS que te ayudará a darle estilos a tu página web de manera más rápida.",
   },
   {
     title: "React",
-    svg: logoHTML,
+    svg: logoReact,
     linkYoutube: "https://www.youtube.com/watch?v=Ed9OM9uQTAA&list=PLJubkp8BnTJshwFKJGgAiQy2HrkTeYT1a",
     // linkDoc: "/docs/category/react",
     description: "La librería más usada en desarollo web. Aprende a crear aplicaciones web con React.",
@@ -40,13 +40,13 @@ const featureList: FeatureItem[] = [
   // {
   //   title: "Phaser",
   //   svg: logoHTML,
-  //   linkYoutube: "https://www.youtube.com/CodingTube",
+  //   // linkYoutube: "https://www.youtube.com/CodingTube",
   //   linkDoc: "/docs/category/phaser",
   //   description: "Framework Open Source de JavaScript para crear videojuegos HTML5.",
   // },
   {
     title: "Dart",
-    svg: logoHTML,
+    svg: logoDart,
     linkYoutube: "https://www.youtube.com/watch?v=ymTczP7hDCE&list=PLJubkp8BnTJsinoOsYfDucgvTbo4Xb_ti",
     linkDoc: "/docs/category/dart",
     description: "Dart es el lenguaje de programación que se utiliza para crear aplicaciones móviles con Flutter.",
