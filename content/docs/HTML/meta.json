@@ -1,5 +1,6 @@
 {
   "title": "HTML",
-  "description": "The description of root folder (optional)",
+  "description": "Lenguaje de marcado de hipertexto",
+  "pages": ["index"],
   "root": true
 }
