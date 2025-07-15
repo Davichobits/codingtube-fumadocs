@@ -8,7 +8,7 @@ const featureList: FeatureItem[] = [
     title: "HTML",
     svg: logoHTML,
     linkYoutube: "https://www.youtube.com/watch?v=QwMlgfMK6fQ&list=PLJubkp8BnTJt-pKYkVNLt72n1hKmYmkFw",
-    linkDoc: "/docs/HTML/introduccion",
+    linkDoc: "/docs/HTML",
     description: "Toda página debe tener una estructura HTML, empieza por aquí.",
   },
   {
@@ -48,7 +48,7 @@ const featureList: FeatureItem[] = [
     title: "Dart",
     svg: logoDart,
     linkYoutube: "https://www.youtube.com/watch?v=ymTczP7hDCE&list=PLJubkp8BnTJsinoOsYfDucgvTbo4Xb_ti",
-    linkDoc: "/docs/category/dart",
+    // linkDoc: "/docs/category/dart",
     description: "Dart es el lenguaje de programación que se utiliza para crear aplicaciones móviles con Flutter.",
   },
   {
