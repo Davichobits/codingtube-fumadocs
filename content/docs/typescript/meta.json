@@ -1,6 +1,11 @@
 {
   "title": "Typescript",
   "description": "Javascript con tipado.",
-  "pages": ["index", "pick", "record"],
+  "pages": [
+    "index", 
+    "pick", 
+    "record",
+    "exclude-extract"
+  ],
   "root": true
 }
