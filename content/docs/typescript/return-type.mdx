@@ -3,3 +3,40 @@ title: ReturnType
 description: Devuelve el tipo del valor de retorno de una función.
 ---
 
+ReturnType es un tipo de utilidad en TypeScript que se utiliza para obtener el tipo del valor de retorno de una función. Es especialmente útil cuando se trabaja con funciones y se necesita inferir el tipo de su resultado sin tener que especificarlo manualmente.
+
+Por ejemplo, si tienes una función que devuelve un objeto o un tipo específico, puedes usar ReturnType para obtener ese tipo directamente.
+
+```typescript
+function getUser() {
+  return {
+    id: 1,
+      name: "John",
+      lastname: "Doe",
+      email: "john.doe@example.com"
+  };
+}
+
+type User = ReturnType<typeof getUser>;
+// User es inferido como { id: number; name: string; lastname: string; email: string; }
+```
+
+Este tipo es útil en situaciones donde las funciones pueden cambiar o ser actualizadas, ya que te permite mantener la consistencia del tipo de retorno sin tener que actualizar manualmente los tipos en otros lugares del código.
+
+## Awaited
+
+ReturnType también se puede combinar con otros tipos de utilidad, como Awaited, para trabajar con funciones asíncronas. Por ejemplo, si tienes una función que devuelve una promesa, puedes usar Awaited junto con ReturnType para obtener el tipo del valor resuelto de esa promesa.
+
+```typescript
+async function getUserAsync() {
+  return {
+    id: 1,
+    name: "John",
+    lastname: "Doe",
+    email: "john.doe@example.com"
+  };
+}
+
+type UserAsync = Awaited<ReturnType<typeof getUserAsync>>;
+// UserAsync es inferido como { id: number; name: string; lastname: string; email: string; }
+```
