@@ -1,0 +1,36 @@
+---
+title: Exclude y Extract
+description: Se utilizan con `union types` para crear nuevos tipos excluyendo o extrayendo ciertos tipos.
+---
+
+Por ejemplo, imagina que tienes el siguiente `union type`:
+
+```ts
+type FormFields = "name" | "email" | "password" | "confirmPassword";
+```
+
+Y necesitas únicamente los datos que no son sensibles, como el `name` y el `email`. Aquí es donde entran en juego `Exclude` y `Extract`. Puedes crear un nuevo tipo a partir de `FormFields` que solamente tenga los campos `name` y `email` usando cualquiera de los tipos de utilidad `exclude` o `extract`.
+
+## Exclude
+
+Si deseas extraer los campos que son públicos, para mostrarlos en el perfil del usuario por ejemplo, puedes usar `exclude` para eliminar el campo `password` y `confirmPassword`:
+
+```ts
+type NonSensitiveFields = Exclude<FormFields, "password" | "confirmPassword">;
+```
+
+El código anterior crea un nuevo tipo `PublicFormFields` que es equivalente a `"name" | "email"`.
+
+## Extract
+`Extract` es el opuesto de `Exclude`. Se utiliza para crear un nuevo tipo extrayendo ciertos tipos de un `union type`. Es útil cuando deseas obtener un subconjunto de tipos que cumplen con ciertas condiciones.
+
+Y deseas extraer solo los campos que no son sensibles del ejemplo anterior, puedes usar `Extract` de la siguiente manera:
+
+```ts
+type NonSensitiveFields = Extract<FormFields, "name" | "email">;
+```
+
+Como puedes ver, `NonSensitiveFields` es equivalente a `"name" | "email"` usando cualquiera de los dos tipos de utilidad.
+
+## Explicación en video:
+
