@@ -1,6 +1,17 @@
 {
   "title": "HTML",
   "description": "Lenguaje de marcado de hipertexto",
-  "pages": ["index"],
+  "pages": [
+    "index", 
+    "que-es-html",
+    "etiquetas-html",
+    "enlaces-html",
+    "listas-en-html",
+    "imagenes-en-html",
+    "tablas-en-html",
+    "formularios-html",
+    "audio-y-video-en-html",
+    "graficos-svg-en-html"
+  ],
   "root": true
 }

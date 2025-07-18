@@ -1,0 +1,71 @@
+---
+title: Funciones vs Funciones Flecha
+description: Entiende las diferencias clave entre funciones tradicionales y funciones flecha en JavaScript.
+date: 2025-07-17
+author: David Ruiz
+---
+
+Existen muchas diferencias entre las funciones tradicionales y las funciones flecha en JavaScript:
+
+## Sintaxis
+Las funciones tradicionales se definen utilizando la palabra clave `function`, mientras que las funciones flecha utilizan una sintaxis más concisa con `=>`.
+
+### Función Tradicional
+```javascript
+function sumar(a, b) {
+  return a + b;
+}
+```
+
+### Función Flecha
+```javascript
+const sumar = (a, b) => a + b;
+```
+
+Si la función flecha devuelve mucho más código también se pueden usar llaves y `return`:
+```javascript
+const sumar = (a, b) => {
+  if (a < 0 || b < 0) {
+    throw new Error("Los números deben ser positivos");
+  }
+  return a + b;
+};
+```
+
+## `this` Context
+Una de las diferencias más importantes es cómo manejan el contexto de `this`. Las funciones tradicionales tienen su propio contexto de `this`, mientras que las funciones flecha heredan el contexto de `this` del ámbito en el que se definen.
+
+### Función Tradicional
+```javascript
+const button = document.getElementById('btn');
+
+button.addEventListener('click', () => {
+  console.log(this); // `this` se refiere al objeto global (window en navegadores)
+})
+```
+
+### Función Flecha
+```javascript
+const button = document.getElementById('btn');
+
+button.addEventListener('click', function () {
+  console.log(this); // `this` se refiere al botón que disparó el evento
+}) 
+```
+
+## Argumentos
+Las funciones tradicionales tienen un objeto `arguments` que contiene todos los argumentos pasados a la función, mientras que las funciones flecha no tienen este objeto. En su lugar, se puede usar el operador rest (`...`) para capturar argumentos.
+### Función Tradicional
+```javascript
+function sumar() {
+  console.log(arguments);
+}
+sumar(1, 2, 3); // [1, 2, 3]
+```
+### Función Flecha
+```javascript
+const sumar = (...args) => {
+  console.log(args);
+};
+sumar(1, 2, 3); // [1, 2, 3]
+```
