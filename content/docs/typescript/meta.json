@@ -1,11 +1,13 @@
 {
   "title": "Typescript",
+  "icon": "TypeOutline",
   "description": "Javascript con tipado.",
   "pages": [
     "index", 
     "record",
     "pick", 
-    "exclude-extract"
+    "exclude-extract",
+    "return-type"
   ],
   "root": true
 }

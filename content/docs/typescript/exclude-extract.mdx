@@ -1,6 +1,6 @@
 ---
 title: Exclude y Extract
-description: Se utilizan con `union types` para crear nuevos tipos excluyendo o extrayendo ciertos tipos.
+description: Selecciona tipos de Union Types.
 ---
 
 Por ejemplo, imagina que tienes el siguiente `union type`:
@@ -33,4 +33,12 @@ type NonSensitiveFields = Extract<FormFields, "name" | "email">;
 Como puedes ver, `NonSensitiveFields` es equivalente a `"name" | "email"` usando cualquiera de los dos tipos de utilidad.
 
 ## Explicación en video:
+
+<iframe 
+  width="560" 
+  height="315" 
+  src="https://www.youtube.com/embed/k17DC4BP3W4?si=-ymIt1uYXKYUc-Yx" 
+  title="YouTube video player" 
+  frameBorder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
 

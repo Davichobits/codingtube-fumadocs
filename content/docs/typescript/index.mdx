@@ -3,10 +3,26 @@ title: Typescript
 description: Superset de javascript que permite el tipado estricto.
 ---
 
+import {
+  Videotape,
+  Pipette,
+  Pickaxe,
+  Undo2
+} from 'lucide-react';
+
 ## Tipos de utilidad:
 
 <Cards>
-  <Card title="Record" href="/docs/typescript/record" />
-  <Card title="Pick y Omit" href="/docs/typescript/pick" />
-  <Card title="Exclude y Extract" href="/docs/typescript/exclude-extract" />
+  <Card icon={<Videotape />} title="Record" href="/docs/typescript/record">
+    <p>Tipo para construir objetos</p>
+  </Card>
+  <Card icon={<Pipette />} title="Pick y Omit" href="/docs/typescript/pick">
+    <p>Selecciona ciertos tipos específicos</p>
+  </Card>
+  <Card icon={<Pickaxe />} title="Exclude y Extract" href="/docs/typescript/exclude-extract">
+    <p>Selecciona tipos de Union Types</p>
+  </Card>
+  <Card icon={<Undo2 />} title="ReturnType" href="/docs/typescript/return-type">
+    <p>Devuelve el tipo del valor de retorno de una función.</p>
+  </Card>
 </Cards>

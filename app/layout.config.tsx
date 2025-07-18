@@ -1,4 +1,4 @@
-// import { BookIcon } from 'lucide-react';
+import { BookIcon } from 'lucide-react';
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 
 /**
@@ -25,7 +25,7 @@ export const baseOptions: BaseLayoutProps = {
     {
       // type: 'icon',
       // label: 'Visit Blog', // `aria-label`
-      // icon: <BookIcon />,
+      icon: <BookIcon />,
       text: 'Blog',
       url: '/blog',
     },
