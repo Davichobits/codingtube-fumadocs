@@ -1,0 +1,131 @@
+---
+title: Hook useRef
+description: Cómo usar el hook useRef en React.
+---
+
+## ¿Qué es useRef?
+
+`useRef` es un hook que ayuda a crear una referencia persistente y mutable que no se renderiza en la UI.
+
+Entendamos esto mejor:
+
+- **Referencia**: que apunta a un valor o a un elemento del DOM.
+- **Persistente**: que va a mantener el valor de la referencia aunque el componente se renderice de nuevo.
+- **Mutable**: que su valor puede cambiar en cualquier momento, cuando nosotros programemos que lo haga.
+
+## ¿Cuándo es necesario usar useRef?
+
+### 1. Almacenar valores mutables sin re-renderizado:
+
+**Variables que no forman parte del estado:** Si necesitas almacenar un valor que cambia con el tiempo pero no afecta la representación visual del componente, useRef te permite hacerlo sin desencadenar un re-renderizado innecesario.
+
+**Optimización del rendimiento:** Al evitar re-renderizados innecesarios, useRef puede mejorar el rendimiento de tu aplicación, especialmente en componentes con lógica compleja.
+
+### 2. Acceder y modificar el DOM:
+
+**Manipulación directa del DOM:** Puedes usar useRef para obtener una referencia a un elemento del DOM y luego modificarlo directamente.
+**Integraciones con librerías externas:** Algunas librerías de terceros requieren acceso directo al DOM, y useRef te facilita hacerlo.
+
+### 3. Implementar funcionalidades específicas:
+
+**Scroll infinito:** Puedes usar useRef para mantener un registro de la posición del scroll y cargar más contenido cuando se llega al final.
+**Animaciones:** useRef te permite almacenar valores que cambian con el tiempo y usarlos para crear animaciones fluidas.
+**Mediciones:** Puedes usar useRef para medir la posición, el tamaño o cualquier otra propiedad de un elemento del DOM.
+
+### 4. Almacenar valores entre re-renders:
+
+**Mantener el estado de un componente:** Si necesitas que un valor se mantenga constante entre re-renders, puedes almacenarlo en una ref.
+**Evitar la pérdida de datos:** Cuando un componente se desmonta y vuelve a montarse, los valores del estado se pierden. useRef te permite evitar esto almacenando los datos en una ref.
+
+## La propiedad `current`
+
+Si guardamos el valor de useRef en una constante y la imprimimos en consola, vamos a ver que tenemos un objeto con una única propiedad que se llama `current` y que contiene el valor de la referencia.
+
+```jsx
+const inputRef = useRef(null);
+console.log(inputRef); // { current: null }
+```
+
+Como parámetro, podemos pasar un valor inicial a la referencia. Este valor puede ser un valor de cualquier tipo (numeros, booleanos, string, arreglos, objetos, etc.) y la referencia de este valor se guarda en la propiedad `current` del objeto.
+
+## ¿Cómo usar useRef dentro de un componente?
+
+`useRef` lo debemos importar desde react he inicializarlo dentro del componente de la siguiente forma:
+
+```jsx
+import React, { useRef } from "react";
+
+export default function App() {
+  const inputRef = useRef(0);
+
+  const handleIncreaseRef = () => {
+    inputRef++; // Valor persistente, no depende del renderizado del componente
+  };
+
+  return (
+    <div>
+      <button onClick={handleIncreaseRef}>Aumentar</button>
+    </div>
+  );
+}
+```
+
+En el código anterior, usamos el hook `useRef` para crear una referencia persistente y mutable. Luego, creamos un botón que incrementa la referencia cada vez que se hace clic en el botón.
+
+<Callout>
+La actualizacion del valor de la referencia, a diferencia de una variable de estado, no provoca un nuevo renderizado del componente.
+</ Callout>
+
+## Referencias a elementos del DOM
+
+El hook useRef también es ampliamente usado para referencias a elementos del DOM. Por ejemplo, para referencias de los elementos de entrada y salida del DOM, como los input y textarea.
+
+```jsx
+import React, { useRef } from "react";
+
+export default function App() {
+  const inputRef = useRef(null);
+
+  const handleFocus = () => {
+    inputRef.current.focus();
+  };
+
+  return (
+    <div>
+      <input ref={inputRef} />
+      <button onClick={handleFocus}>Focus</button>
+    </div>
+  );
+}
+```
+
+En el código anterior, usamos el hook `useRef` para referenciar un elemento del DOM. Luego, creamos un botón que hace focus en el elemento de entrada.
+
+## Referencias nulas elementos del DOM
+
+Uno de los grandes problemas que ayuda a solucionar useRef son las referencias nulas del DOM. Esto puede pasar, por ejemplo, si el elemento del DOM se elimina del DOM antes de que el componente se renderice.
+
+```jsx
+import React, { useRef } from "react";
+
+export default function App() {
+  const inputRef = useRef(null);
+
+  const handleFocus = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
+
+  return (
+    <div>
+      <input ref={inputRef} />
+      <button onClick={handleFocus}>Focus</button>
+    </div>
+  );
+}
+```
+
+## Explicación en video:
+
+<iframe width="100%" height="444" src="https://www.youtube.com/embed/dO8Z0mZGrvQ?si=HiGM5vVEBHy8k2EK" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
