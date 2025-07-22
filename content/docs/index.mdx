@@ -3,11 +3,24 @@ title: Documentación
 description: Documentación de CodingTube
 ---
 
+import {
+  Code,
+  Braces,
+  TypeOutline
+} from 'lucide-react';
+
 En esta sección encontrarás la documentación oficial de los videos de CodingTube.
 
 ## ¿Por donde continuar?
 
 <Cards>
-  <Card title="HTML" href="/docs/HTML" />
-  <Card title="Typescript" href="/docs/typescript" />
+  <Card icon={<Code />} title="HTML" href="/docs/HTML">
+  <p>Hipertext Markup Language</p>
+  </Card>
+  <Card icon={<Braces />} title="React" href="/docs/react">
+  <p>Librería de Javascript</p>
+  </Card>
+  <Card icon={<TypeOutline />} title="Typescript" href="/docs/typescript">
+  <p>Superset de javascript que permite el tipado estricto.</p>
+  </Card>
 </Cards>

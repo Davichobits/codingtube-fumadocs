@@ -1,0 +1,19 @@
+{
+  "title": "React",
+  "description": "Librería de Javascript para la construcción de páginas web",
+  "icon": "Braces",
+  "pages": [
+    "index", 
+    "configuration-del-proyecto",
+    "tu-primer-componente",
+    "componentes-anidados",
+    "props",
+    "insertando-imagenes",
+    "renderizado-de-listas",
+    "respondiendo-a-eventos",
+    "hook-useState",
+    "hook-useEffect",
+    "hook-useRef"
+  ],
+  "root": true
+}

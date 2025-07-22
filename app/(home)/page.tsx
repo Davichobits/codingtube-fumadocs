@@ -34,7 +34,7 @@ const featureList: FeatureItem[] = [
     title: "React",
     svg: logoReact,
     linkYoutube: "https://www.youtube.com/watch?v=Ed9OM9uQTAA&list=PLJubkp8BnTJshwFKJGgAiQy2HrkTeYT1a",
-    // linkDoc: "/docs/category/react",
+    linkDoc: "/docs/react",
     description: "La librería más usada en desarollo web. Aprende a crear aplicaciones web con React.",
   },
   // {
