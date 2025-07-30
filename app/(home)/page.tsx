@@ -64,12 +64,13 @@ export default function HomePage() {
   return (
     <main className="flex flex-1 flex-col justify-center text-center">
       <p className="text-fd-muted-foreground mt-10">
-        Bienvenidos a la documentación oficial de CodingTube{' '}
+        Bienvenidos a la documentación oficial de {' '}
         <Link
-          href="/docs"
+          href="https://www.youtube.com/CodingTube/"
           className="text-fd-foreground font-semibold underline"
+          target='_blank'
         >
-          /docs
+          CodingTube
         </Link>.
       </p>
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-w-[960px] mx-auto my-8 px-2'>
@@ -79,6 +80,24 @@ export default function HomePage() {
           ))
         }
       </div>
+      <p className="text-fd-muted-foreground my-10">
+        Sitio creado con ❤️ por {' '}
+        <Link
+          href="https://davidruizdeveloper.com/"
+          className="text-fd-foreground font-semibold underline"
+          target='_blank'
+        >
+          David Ruiz
+        </Link>. 
+        El código está disponible en {' '}
+        <Link
+          href="https://github.com/Davichobits/codingtube-fumadocs"
+          className="text-fd-foreground font-semibold underline"
+          target='_blank'
+        >
+          Github
+        </Link>.
+      </p>
     </main>
   );
 }
