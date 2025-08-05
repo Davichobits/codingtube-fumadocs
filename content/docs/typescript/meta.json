@@ -4,6 +4,7 @@
   "description": "Javascript con tipado.",
   "pages": [
     "index", 
+    "instalacion",
     "record",
     "pick", 
     "exclude-extract",
