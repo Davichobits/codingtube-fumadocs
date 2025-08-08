@@ -48,8 +48,8 @@ const featureList: FeatureItem[] = [
     title: "Dart",
     svg: logoDart,
     linkYoutube: "https://www.youtube.com/watch?v=ymTczP7hDCE&list=PLJubkp8BnTJsinoOsYfDucgvTbo4Xb_ti",
-    // linkDoc: "/docs/category/dart",
-    description: "Dart es el lenguaje de programación que se utiliza para crear aplicaciones móviles con Flutter.",
+    linkDoc: "/docs/dart",
+    description: "Lenguaje utilizado en Flutter para desarrollar aplicaciones móviles.",
   },
   {
     title: "Typescript",

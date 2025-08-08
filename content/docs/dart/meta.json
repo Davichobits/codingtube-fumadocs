@@ -1,0 +1,20 @@
+{
+  "title": "Dart",
+  "description": "Lenguaje utilizado en Flutter para desarrollar aplicaciones móviles.",
+  "icon": "CodeXml",
+  "pages": [
+    "variables-en-dart", 
+    "operadores-en-dart",
+    "listas-en-dart",
+    "mapas-en-dart",
+    "sets-en-dart",
+    "condicional-if",
+    "condicional-switch",
+    "ciclo-while-y-do-while-en-dart",
+    "ciclo-for-en-dart",
+    "ciclo-for-in",
+    "funciones-en-dart",
+    "funciones-flecha-en-dart"
+  ],
+  "root": true
+}
