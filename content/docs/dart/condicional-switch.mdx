@@ -1,0 +1,155 @@
+---
+title: Switch en Dart
+description: Condicional para trabajar con varios casos a la vez.
+---
+
+import {
+  Building,
+  Rocket
+} from 'lucide-react';
+
+La sentencia `switch` evalúa una expresión contra una serie de casos. Si la expresión cumple con alguno de los casos, se ejecuta el bloque de código correspondiente.
+
+A continuación se muestra la lógica de un switch en pseudocódigo:
+
+```dart
+switch (expresión) {
+  caso1:
+  // Código que se ejecuta si la condición se cumple
+  caso2:
+  // Código que se ejecuta si la condición se cumple
+  caso3:
+  // Código que se ejecuta si la condición se cumple
+  default:
+  // Código que se ejecuta si ninguna de las anteriores se cumple
+}
+```
+
+## Ejemplo
+
+Imaginemos que queremos implementar la lógica de un semáforo. Sabemos que existen tres posibles opciones:
+
+- **Rojo**: el auto debe detenerse.
+- **Amarillo**: el auto debe prepararse para detenerse.
+- **Verde**: el auto puede continuar.
+
+Esto en código sería de la siguiente forma:
+
+```dart
+void main() {
+  final string  colorSemaforo = "verde";
+
+  switch (colorSemaforo) {
+    case "rojo":
+      print("Debes detenerte");
+    case "amarillo":
+      print("Prepárate para detenerte");
+    case "verde":
+      print("Puedes continuar");
+  }
+}
+```
+
+<Callout title="Nota">
+Si vienes de otros lenguaje de programación, notarás que falta la palabra `break` en cada caso. Esto es porque en Dart el uso de `break` es opcional.	
+</Callout>
+
+## El uso de `default`	
+
+Habrá veces donde la condición no se cumple para ninguno de los casos propuestos. Si esto sucede se puede especificar un caso `default` (por defecto) que se ejecutará si ninguna de las anteriores se cumple. Por ejemplo:
+
+```dart
+void main() {
+  int diaSemana = 3; 
+
+  switch (diaSemana) {
+    case 1:
+      print('Lunes');
+    case 2:
+      print('Martes');
+    case 3:
+      print('Miércoles');
+    case 4:
+      print('Jueves');
+    case 5:
+      print('Viernes');
+    case 6:
+      print('Sábado');
+    case 7:
+      print('Domingo');
+    default:
+      print('Introduce un número del 1 al 7.');
+  }
+}
+```
+
+En el código anterior si el número no es un número del 1 al 7, se imprimirá el mensaje por defecto: `Número de día inválido. Introduce un número del 1 al 7.`	
+
+
+## Ejercicio propuesto:
+
+Es hora de poner en práctica lo que has aprendido en este post. A continuación, en la pestaña `Ejercicio` tienes un ejercicio propuesto. La idea es que trates de hacerlo por tu cuenta y luego lo puedas comprobar con la solución sugerida de la pestaña `Respuesta`
+
+```ts tab="<Building /> Ejercicio"
+
+    // Escribe un programa que le pida al usuario una nota entre 1 y 5. 
+    // El programa debe imprimir la clasificación correspondiente. 
+    // Utiliza un switch para determinar el nivel de rendimiento en función de la nota. 
+    // Si la nota no está en el rango de 1 a 5, imprime un mensaje de error.
+
+    // * Si la nota es 1, imprime: *"Muy Bajo"*.
+    // * Si la nota es 2, imprime: *"Bajo"*.
+    // * Si la nota es 3, imprime: *"Regular"*.
+    // * Si la nota es 4, imprime: *"Bueno"*.
+    // * Si la nota es 5, imprime: *"Excelente"*.
+    // * Si la nota no es ninguno de los anteriores, imprime: *"Nota no válida"*.
+
+    
+    void main() {
+
+      // Cambia este valor para probar diferentes resultados.
+      final int nota = 4; 
+
+      // tu código va aquí
+
+    }
+    ```
+```ts tab="<Rocket /> Respuesta"
+    
+    // Gracias por haberlo intentado primero antes de ver la solución. 
+    // Si no lo hiciste así, cambia de pestaña e inténtalo tu primero 🤭 
+    
+    // Recuerda que no hay una solución única. Toma la siguiente solución 
+    // como una sugerencia de cómo se pudo hacer resuelto el ejercicio.
+    
+    void main() {
+      final int nota = 4; // Cambia este valor para probar diferentes resultados.
+
+      // Usamos switch para clasificar la nota
+      switch (nota) {
+        case 1:
+          print('La nota $nota corresponde a: Muy Bajo');
+          break;
+        case 2:
+          print('La nota $nota corresponde a: Bajo');
+          break;
+        case 3:
+          print('La nota $nota corresponde a: Regular');
+          break;
+        case 4:
+          print('La nota $nota corresponde a: Bueno');
+          break;
+        case 5:
+          print('La nota $nota corresponde a: Excelente');
+          break;
+        default:
+          print('Nota no válida. Introduce una nota entre 1 y 5.');
+      }
+    }
+    ```
+
+# Explicación en video:
+
+A continuación te dejo un video explicando más a detalle cómo utilizar un condicional `switch`.
+
+<iframe width="100%" height="444" src="https://www.youtube.com/embed/mYCfi5MOgVo?si=kVjWCKrj14eCHsTE" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>

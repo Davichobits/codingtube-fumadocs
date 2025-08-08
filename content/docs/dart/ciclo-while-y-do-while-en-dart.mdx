@@ -1,0 +1,141 @@
+---
+title: Ciclo While y Do... While
+description: Ciclo para repetir un bloque de código mientras se cumpla una condición.
+---
+
+import {
+  Building,
+  Rocket
+} from 'lucide-react';
+
+Muchas veces tienes que realizar tareas repetitivas con tu código, como por ejemplo imprimir una serie de números. Supongamos que tenemos que imprimir del 1 al 100. Hacer esto línea por línea sería una tarea muy tediosa:
+
+```dart
+void main() {
+  print(1);
+  print(2);
+  print(3);
+
+  // y así sucesivamente...
+  
+  print(100);
+}
+```
+
+Pero se puede optimizar este código usando ciclos (bucles) repetitivos. Uno de ellos es el ciclo `while`.
+
+## Estructura de un ciclo `while`
+
+El ciclo `while` se va a ejecutar mientras se cumpla una condición. La estructura es muy parecida a la del [condicional if](https://codingtube.dev/docs/dart/condicional-if), pero la diferencia es que el [condicional if](https://codingtube.dev/docs/dart/condicional-if) se ejecuta una vez.
+
+```dart
+  while(condición){
+    // Se ejecuta este código mientras se cumpla la condición
+  }
+```
+
+La estructura es muy sencilla como puedes ver, pero para que funcione es necesario código extra, como por ejemplo, el uso de un contador.
+
+## Contadores en el ciclo `while`
+
+El ciclo while generalmente utiliza contadores para llevar el conteo de cada iteración (una iteración es cada vez que se ejecuta un código, es decir es una vuelta de código). Por ejemplo, supongamos que queremos imprimir los números del 1 al 10. Podemos hacerlo de la siguiente manera:
+
+```dart
+void main() {
+  int i = 1;
+
+  while(i <= 10){
+    print(i);
+    i++;  
+  }
+}
+```
+
+Como vez, hemos creado una variable `i`  que se va a incrementar en uno en cada iteración.
+
+<Callout title="Nota">
+Generalmente se utiliza la letra `i` porque hace referencia a la palabra iteración.
+</Callout>
+
+El código anterior se ejecuta de la siguiente manera:
+
+1. En la primera iteración la variable `i` vale 1.
+2. El ciclo `while` evalúa la condición de si `i` es menor a 10.
+3. Luego imprime en consola el valor de `i`.
+4. Luego se incrementa la variable `i` en uno. 
+5. Finalmente se vuelve a realizar la iteración desde el punto 2.
+
+Esto se repite una y otra vez hasta que la condición deje de cumplirse.
+
+<Callout title="Importante" type="error">
+El paso 4 anterior es muy importante ya que al incrementar el contador, en algún momento, el ciclo `while` se va a detener, y será cuando la condición de que `i` sea menor o igual a 10 deje de cumplirse. Si no aumentamos el valor de `i`, siempre va a valer 1, por ende la condición `(i <= 10)` siempre de cumplirá y el ciclo `while` nunca se detendrá.
+</Callout>
+
+## El ciclo `Do While`
+
+`Do While` es una variación del ciclo `while`. La diferencia es que el bucle (ciclo) `Do While` se ejecuta al menos una vez. No importa si en la primera vez la condición no se cumple. La estructura es la siguiente:
+
+```dart
+  do{
+    // Se ejecuta este código primero
+    // y luego pregunta si se cumple la condición
+  } while(condición);
+```
+
+Partiendo del mismo ejemplo donde se necesita imprimir los números del uno al 100, podemos resolverlo usando un bloque `do while` así:
+
+```dart
+void main() {
+
+  int i = 1;
+
+  do{
+    print(i);
+    i++;
+  } while(i <= 100);
+}
+```
+
+## Ejercicio propuesto:
+
+Es hora de poner en práctica lo que has aprendido en este post. A continuación, en la pestaña `Ejercicio` tienes un ejercicio propuesto. La idea es que trates de hacerlo por tu cuenta y luego lo puedas comprobar con la solución sugerida de la pestaña `Respuesta`
+
+```ts tab="<Building /> Ejercicio"
+
+    // Escribe un programa en Dart que imprima en consola los números 
+    // impares descendentes del 100 al 1.
+
+    // Para resolver este ejercicio puedes usar el bucle `while` o el bucle `do while`.
+
+    // La respuesta la encuentras en la pestaña `Respuesta`.
+```
+```ts tab="<Rocket /> Respuesta"
+    
+    // Gracias por haberlo intentado primero antes de ver la solución.
+    // Si no lo hiciste así, cambia de pestaña e inténtalo tu primero 🤭 
+    
+    // Recuerda que no hay una solución única. 
+    // Toma la siguiente solución como una sugerencia de cómo se pudo 
+    // hacer resuelto el ejercicio.
+
+    void main() {
+      int i = 99;
+
+      while(i >= 1){
+        print(i);
+        i -= 2;
+      }
+    }
+    ```
+
+# Explicación en video:
+
+A continuación te dejo un par de videos explicando más a detalle cómo utilizar los ciclos `while` y `do while`:
+
+## While:
+
+<iframe width="100%" height="444" src="https://www.youtube.com/embed/yZwdc-okizQ?si=pG5sEnKqiwbZXJtb" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+
+## Do While:
+
+<iframe width="100%" height="444" src="https://www.youtube.com/embed/2Q6YmvMbnzw?si=mOCmO9Eo1r8iYmAP" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
