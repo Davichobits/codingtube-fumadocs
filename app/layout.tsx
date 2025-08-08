@@ -3,10 +3,13 @@ import '@/app/global.css';
 import { Provider } from './provider';
 import { Inter } from 'next/font/google';
 import type { ReactNode } from 'react';
+import { metadata } from './metada';
 
 const inter = Inter({
   subsets: ['latin'],
 });
+
+export { metadata };
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
