@@ -29,5 +29,16 @@ export const baseOptions: BaseLayoutProps = {
       text: 'Blog',
       url: '/blog',
     },
+    {
+      type: 'menu',
+      text: '¿Clases particulares?',
+      items: [
+        {
+          text: 'Prueba gratuita 20 min.',
+          description: 'Reserva clases particulares conmigo.',
+          url: 'https://www.classgap.com/es/tutor/david-577169',
+        },
+      ],
+    },
   ],
 };
