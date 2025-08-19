@@ -14,7 +14,8 @@
     "como-insertar-imagenes",
     "transiciones-con-css",
     "transformaciones-en-css",
-    "animaciones-css"
+    "animaciones-css",
+    "flexbox"
   ],
   "root": true
 }
