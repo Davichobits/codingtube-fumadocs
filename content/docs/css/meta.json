@@ -1,0 +1,20 @@
+{
+  "title": "CSS",
+  "description": "Lenguaje de marcado de hipertexto",
+  "icon": "CodeXml",
+  "pages": [
+    "index", 
+    "que-es-css",
+    "colores-en-css",
+    "editar-texto",
+    "unidades-de-medida",
+    "modelo-de-caja-en-css",
+    "estilos-a-enlaces",
+    "como-posicionar-elementos",
+    "como-insertar-imagenes",
+    "transiciones-con-css",
+    "transformaciones-en-css",
+    "animaciones-css"
+  ],
+  "root": true
+}
