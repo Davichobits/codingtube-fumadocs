@@ -5,3 +5,8 @@
 @theme {
   --color-Hover: #c09eec;
 }
+
+.youtube-video{
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}

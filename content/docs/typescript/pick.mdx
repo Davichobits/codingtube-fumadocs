@@ -45,7 +45,7 @@ Pero queremos crear un tipo que no incluya la propiedad `description`, podemos h
 
 ```ts 
 type TodoPreview = Omit<Todo, "description">;
- 
+
 const todo: TodoPreview = {
   title: "Clean room",
   completed: false,
@@ -56,8 +56,7 @@ const todo: TodoPreview = {
 ## Explicación en video:
 
 <iframe 
-  width="560" 
-  height="315" 
+  className='youtube-video'
   src="https://www.youtube.com/embed/JI0HqcWpyXk?si=3vIMspyG9jbQIVDa" 
   title="YouTube video player" 
   frameBorder="0" 
