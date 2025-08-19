@@ -8,14 +8,14 @@ const featureList: FeatureItem[] = [
     title: "HTML",
     svg: logoHTML,
     linkYoutube: "https://www.youtube.com/watch?v=QwMlgfMK6fQ&list=PLJubkp8BnTJt-pKYkVNLt72n1hKmYmkFw",
-    linkDoc: "/docs/HTML",
+    linkDoc: "/docs/html",
     description: "Toda página debe tener una estructura HTML, empieza por aquí.",
   },
   {
     title: "CSS",
     svg: logoCSS,
     linkYoutube: "https://www.youtube.com/watch?v=I_RG3bNjTfQ&list=PLJubkp8BnTJt1u6z_voRiYtwskmP0VVzw",
-    // linkDoc: "/docs/category/css",
+    linkDoc: "/docs/css",
     description: "Los estilos son importantes para que tu página se vea bien, aprende a usar CSS.",
   },
   {
