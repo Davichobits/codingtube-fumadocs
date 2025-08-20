@@ -29,7 +29,7 @@ Para hacer que sus elementos hijos se distribuyan en una fila, debes aplicar las
 }
 ```
 
-Esto cambiará el comportamiento de los elementos hijos, colocándolos en una fila en lugar de en una columna:
+Esto cambiará el comportamiento de los elementos hijos, colocándolos en una fila en lugar de en una columna, el ancho de cada div dependerá del contenido:
 
 ![display_flex](./img/display_flex.webp)
 
@@ -39,12 +39,51 @@ También podemos modificar su posición desde aquí con la propiedad `justify-co
 
 ```css
 .container {
-  justify-content: space-between;
+  display: flex;
+  justify-content: space-between; /* [!code highlight] */
 }
 ```
 Esto agregará un espacio entre los elementos hijos, distribuyéndolos uniformemente en la fila:
 
 ![justify_content](./img/justify_content.webp)
+
+La propiedad `justify-content` puede tener los siguientes valores:
+
+- `flex-start`: Alinea los elementos al inicio del contenedor.
+- `flex-end`: Alinea los elementos al final del contenedor.
+- `center`: Alinea los elementos en el centro del contenedor.
+- `space-between`: Distribuye los elementos con espacio entre ellos.
+- `space-around`: Distribuye los elementos con espacio alrededor de ellos.
+
+Te invito a que experimentes con cada uno de ellos.
+
+## align-items
+
+La propiedad `align-items` se utiliza para alinear los elementos hijos a lo largo del eje transversal (verticalmente en un contenedor de fila). 
+
+![align_items](./img/transversal.webp)
+
+Puedes hacer que todos los `items` empiecen desde la parte superior del contenedor, alineándolos al inicio:
+
+```css
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* [!code highlight] */
+}
+```
+
+![items_start](./img/items-start.webp)
+
+Puede tener los siguientes valores:
+
+
+
+- `flex-start`: Alinea los elementos al inicio del contenedor.
+- `flex-end`: Alinea los elementos al final del contenedor.
+- `center`: Alinea los elementos en el centro del contenedor.
+- `baseline`: Alinea los elementos en la línea base del contenedor.
+- `stretch`: Estira los elementos para que ocupen todo el espacio disponible.
 
 # Más propiedades
 
