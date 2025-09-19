@@ -1,7 +1,7 @@
 {
   "title": "Dart",
   "description": "Lenguaje utilizado en Flutter para desarrollar aplicaciones móviles.",
-  "icon": "CodeXml",
+  "icon": "SmartphoneCharging",
   "pages": [
     "variables-en-dart", 
     "operadores-en-dart",

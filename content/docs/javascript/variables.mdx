@@ -1,0 +1,56 @@
+---
+title: Variables en Javascript
+description: Cómo crear y utilizar variables en Javascript.
+---
+
+## ¿Qué es una variable?
+
+Imagina una variable como una caja donde puedes guardar información para usarla más tarde. En programación, las variables son contenedores que almacenan datos que pueden cambiar durante la ejecución del programa.
+
+### Tipos de variables
+
+En Javascript, hay tres formas de declarar variables:
+
+1. **var**: Es la forma más antigua y tiene un alcance global o de función.
+2. **let**: Introducido en ES6, tiene un alcance de bloque.
+3. **const**: También introducido en ES6, se utiliza para declarar constantes, es decir, valores que no cambian.
+
+### Ejemplo
+
+```javascript
+var nombre = "Juan";
+let edad = 30;
+const PI = 3.14;
+```
+
+## Cómo nombrar una variable en Javascript
+
+Al nombrar variables en Javascript, hay algunas reglas y convenciones que debes seguir:
+
+1. **Reglas**:
+   - Deben comenzar con una letra, un guion bajo (_) o un signo de dólar ($).
+   - No pueden comenzar con un número.
+   - No pueden contener espacios ni caracteres especiales (como @, #, %, etc.).
+   - Javascript es sensible a mayúsculas y minúsculas, por lo que `nombre` y `Nombre` son dos variables diferentes.
+
+2. **Convenciones**:
+   - Usa nombres descriptivos que indiquen el propósito de la variable (por ejemplo, `edad` en lugar de `e`).
+   - Usa camelCase para nombres de variables de múltiples palabras (por ejemplo, `nombreCompleto`).
+
+Ejemplo de nombres de variables:
+
+```javascript
+let nombreCompleto = "Juan Pérez";
+const PI = 3.14;
+```
+
+Ejemplos de nombres de variables inválidos:
+
+```javascript
+let 1nombre = "Juan Pérez"; // No puede comenzar con un número
+const PI% = 3.14; // No puede contener caracteres especiales
+```
+
+## Explicación en video:
+
+<iframe className='youtube-video' src="https://www.youtube.com/embed/J7zOnUUTc0U?si=d4ctHlUu0KyNJrN5" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin"  ></iframe>

@@ -1,0 +1,10 @@
+{
+  "title": "Javascript",
+  "description": "Lenguaje de programación para la web",
+  "icon": "Globe",
+  "pages": [
+    "index",
+    "variables"
+  ],
+  "root": true
+}

@@ -22,6 +22,7 @@ const featureList: FeatureItem[] = [
     title: "Javascript",
     svg: logoJavascript,
     linkYoutube: "https://www.youtube.com/watch?v=3oSeQb94Ga4&list=PLJubkp8BnTJsDgWXWcS1Z0VDV7rAOqbU4",
+    linkDoc: "/docs/javascript",
     description: "Aprende a dar funcionalidad e interactividad a tu página web con Javascript.",
   },
   {
