@@ -1,0 +1,59 @@
+---
+title: Alias en React con TypeScript y Vite
+description: Aprende a crear alias en tus proyectos de React utilizando TypeScript y Vite para mejorar la organización y legibilidad de tu código.
+date: 2025-07-14
+author: David Ruiz
+---
+
+Para configurar alias en un proyecto de React con TypeScript y Vite, sigue estos pasos:
+
+## 1. Configura los alias en `tsconfig.app.json`:
+
+Abre el archivo `tsconfig.app.json` en la raíz de tu proyecto y agrega la configuración de paths dentro del objeto `compilerOptions`. Aquí tienes un ejemplo:
+
+```json
+{
+  "compilerOptions": {
+    /* aliases */
+    "baseUrl": "./src",
+    "paths": {
+      "@components/*": ["components/*"],
+    }
+  }
+}
+```
+<Callout>
+  Si tu proyecto no tiene un archivo `tsconfig.app.json`, puedes buscar un archivo `tsconfig.json` o crear uno nuevo en la raíz del proyecto.
+</Callout>
+
+## 2. Configura Vite para reconocer los alias:
+
+Abre el archivo `vite.config.ts` en la raíz de tu proyecto y agrega la siguiente configuración:
+
+```ts
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path'
+
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: {
+      "@components": path.resolve(__dirname, "src/components"),
+    },
+  },
+});
+```
+
+Es necesario instalar los tipos de node para poder reconocer la importación de `resolve` con el siguiente comando:
+
+```bash
+npm i -D @types/node
+```
+
+## 3. Configura las autoimportaciones de VSC:
+
+En visual studio code, abre la configuración (Ctrl + ,) y busca `typescript.preferences.importModuleSpecifier`. Cambia el valor a `non-relative` para que las autoimportaciones utilicen los alias configurados.
+
+## 4. Reinicia el servidor de desarrollo.
+Después de realizar estos cambios, asegúrate de reiniciar el servidor de desarrollo para que los cambios surtan efecto.

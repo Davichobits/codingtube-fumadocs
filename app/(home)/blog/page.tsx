@@ -4,6 +4,9 @@ import Image from 'next/image';
 
 export default function Home() {
   const posts = blog.getPages();
+  posts.sort((a, b) =>
+    a.data.date > b.data.date ? -1 : 1
+  );
 
 
   return (
