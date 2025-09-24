@@ -1,0 +1,153 @@
+---
+title: Estructura de estado en React
+description: Conoce las diferentes estrucuturas de estado en React y aprende a elegir la correcta para tu proyecto.
+date: 2025-07-12
+author: David Ruiz
+---
+
+Estructurar el estado correctamente en tu aplicación de React puede hacer la diferencia entre tener un componente que sea fácil de modificar y `debugear` o tener un componente que sea un constante dolor de cabeza cuando se trabaja con él.
+
+## 🏗️ Principios para estructurar un estado.
+
+El objetivo detrás de los siguientes principios es el de hacer de que el estado sea fácil de actualizar sin introducir errores.
+
+1. Agrupar estados relacionados.
+2. Evitar contradicciones en estado.
+3. Evitar estados redundantes.
+4. Evitar duplicación en estado.
+5. Evitar anidación excesiva de estado.
+
+## 👉 Agrupar estados relacionados
+
+A veces te encontrarás con escenarios donde tienes que actualizar dos o más estados al mismo tiempo, como por ejemplo cuando trabajas con coordenadas. Podrías crear un estado por cada coordenada de esta forma:
+
+```js
+const [x, setX] = useState(0);
+const [y, setY] = useState(0);
+const [z, setZ] = useState(0);
+```
+
+o podrías crear un estado que represente un objeto con todas las variables a actualizar:
+
+```js
+const [position, setPosition] = useState({x:0, y:0, z:0});
+```
+
+<Callout>
+  Recuerda que cuando el estado es un objeto, no puedes actualizar únicamente una propiedad. En vez de hacer esto  `setPosition({ x: 20 })` por que estaría reemplazando el objeto inicial con tres propiedades por un nuevo objeto que sólo tiene una. En este caso tienes que utlizar el operador `spread` (...) el mismo que hace una copia de las propiedades y reescribes la que quieres cambiar de esta forma: `setPosition({ ...position, x: 20 })`.
+</Callout>
+
+## 👉 Evitar contradicciones en estado.
+
+Es importante que analices el valor que va a tener cada estado y si no interfieren entre ellos. Por ejemplo puedes tener una aplicación con los siguientes estados:
+
+```js
+  const [isTyping, setIsTyping] = useState(false); // enviando
+  const [isSending, setIsSending] = useState(false); // enviando
+  const [isSent, setIsSent] = useState(false);       // enviado
+```
+
+Si analizamos un poco estos estados nos podemos dar cuenta de que el estado `isSent` (enviado) no podrá ser verdadero a menos que `isSending` (enviando) esté el falso. No se va a dar el caso en que ambos sean verdaderos.
+
+Teniendo en cuenta esto, podríamos decir que el código anterior no tiene ningún problema, pero es propenso a errores, ya que tenemos que estar pendientes de actualizar ambos estados correctamente y al mismo tiempo, y esto es algo que como desarrolladores nos podemos olvidar. 
+
+En el siguiente código verás lo que tenemos que hacer cada vez que necesitemos actulizar el estado:
+
+```js
+  function handleSubmit(e){
+    // Lógica para el envio
+    setIsTyping(false);
+    setIsSending(true);
+    setIsSent(false);
+
+    // Luego del envio se actualiza el último estado
+    setIsTyping(false);
+    setIsSending(false);
+    setIsSent(true);
+  }
+```
+
+Pero si en algún momento olvidas llamar a los tres métodos y sólo llamas uno, vas a tener un estado "imposible" donde al menos dos estados estarán en verdadero. Entre más complejo sea tu componente, más difícil será saber que está pansado.
+
+En este caso se recomienda tener un solo estado que represente los tres estados anteriores:
+
+```js
+  const [status, setStatus] = useState('typing'); // 'typing' - 'sending' - 'send'
+```
+
+Este estado sólo podrá tener uno de estos tres valores: `typing`, `sending` o `send`. De esta forma evitas confundirte entre estados u olvidarte de actualizar alguno de ellos.
+
+### Usando Typescript
+
+Se puede mejorar aún más el código anterior usando Typescript. Con Typescript podemos usar `union types`, los mismos que permiten definir un string con valores específicos. Es decir el código anterior quedaría de la siguiente forma:
+
+```ts 
+  type Status: 'typing', 'sending', 'send';
+  const [status, setStatus] = useState<Status>('typing'); // 'typing' - 'sending' - 'send'
+```
+
+Con esto te aseguras también que escribas mal algún estado omitiendo alguna letra por ejemplo.
+
+## 👉 Evitar estados redundantes.
+
+Un ejemplo simple para entender este principio es el siguiente:
+
+```js
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [fullName, setFullName] = useState('');
+```
+
+Se podría pensar que necesitamos un estado para el nombre comppleto (`fullName`), pero en realidad este estado es redundante, ya que podemos obtener el nombre completo a partir de los otros dos estados (`firstName` y `lastName`).
+
+Pero ya pensando en un ejemplo un poco más complejo, analicemos el siguiente código:
+
+```js
+  function ShoppingList({ items }) {
+  const [query, setQuery] = useState("");
+  const [filteredItems, setFilteredItems] = useState(items); // Estado redundante
+
+  function handleSearch(e) {
+    const value = e.target.value;
+    setQuery(value);
+    setFilteredItems(items.filter(item => item.includes(value))); // Estado redundante
+  }
+
+  return (
+    <>
+      <input value={query} onChange={handleSearch} />
+      <ul>
+        {filteredItems.map(item => <li key={item}>{item}</li>)}
+      </ul>
+    </>
+  );
+}
+```
+
+En este caso, el estado `filteredItems` es redundante, ya que podemos obtener los elementos filtrados a partir del estado `query` y la prop `items`.
+
+Lo correcto sería lo siguiente:
+
+```js
+  function ShoppingList({ items }) {
+  const [query, setQuery] = useState("");
+  // const [filteredItems, setFilteredItems] = useState(items);
+
+  function handleSearch(e) {
+    const value = e.target.value;
+    setQuery(value);
+    // setFilteredItems(items.filter(item => item.includes(value)));
+  }
+
+  const filteredItems = items.filter(item => item.includes(query));
+
+  return (
+    <>
+      <input value={query} onChange={handleSearch} />
+      <ul>
+        {filteredItems.map(item => <li key={item}>{item}</li>)}
+      </ul>
+    </>
+  );
+}
+```

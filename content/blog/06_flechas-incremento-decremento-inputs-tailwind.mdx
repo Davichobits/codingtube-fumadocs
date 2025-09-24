@@ -1,0 +1,40 @@
+---
+title: Cómo ocultar flechas al ingresar números en inputs con Tailwind CSS
+description: Aprende a ocultar las flechas de incremento y decremento en los inputs de tipo número utilizando Tailwind CSS.
+date: 2025-07-13
+author: David Ruiz
+---
+
+## Usando CSS
+
+Para ocultar las flechas de incremento y decremento en los inputs de tipo número utilizando Tailwind CSS, puedes utilizar las siguientes clases personalizadas.
+
+```css
+/* Ocultar flechas en Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Ocultar flechas en Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+```
+
+## Usando Tailwind CSS
+
+Para hacer lo mismo con Tailwind CSS, tendrás que utilizar las siguientes clases:
+
+```css
+[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none
+```
+
+El código completo dentro de un input sería:
+
+```html
+<input
+  type="number"
+  class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+/>
+```
