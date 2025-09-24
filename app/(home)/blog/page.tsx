@@ -1,13 +1,6 @@
 import Link from 'next/link';
 import { blog } from '@/lib/source';
 import Image from 'next/image';
-import blogImage1 from './images/blog1.jpg';
-import blogImage2 from './images/blog2.jpg';
-import blogImage3 from './images/blog3.jpg';
-import blogImage4 from './images/blog4.jpg';
-import blogImage5 from './images/blog4.jpg';
-
-const blogImages = [blogImage1, blogImage2, blogImage3, blogImage4, blogImage5];
 
 export default function Home() {
   const posts = blog.getPages();
@@ -21,7 +14,7 @@ export default function Home() {
             <article key={post.url} className='relative flex gap-5'>
               <Image
                 className=''
-                src={blogImages[index]}
+                src={`/assets/blog-images/blog${posts.length - index}.jpg`}
                 width={64 * 2}
                 height={96 * 2}
                 alt='code'

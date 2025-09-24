@@ -1,0 +1,27 @@
+---
+title: Alias en React con TypeScript y Vite
+description: Aprende a crear alias en tus proyectos de React utilizando TypeScript y Vite para mejorar la organización y legibilidad de tu código.
+date: 2025-09-19
+author: David Ruiz
+---
+
+Para configurar alias en un proyecto de React con TypeScript y Vite, sigue estos pasos:
+
+1. **Configura los alias en `tsconfig.json`:**
+
+   Abre el archivo `tsconfig.json` en la raíz de tu proyecto y agrega la configuración de paths dentro del objeto `compilerOptions`. Aquí tienes un ejemplo:
+
+   ```json
+   {
+     "compilerOptions": {
+       "baseUrl": "./src",
+       "paths": {
+         "@components/*": ["components/*"],
+         "@utils/*": ["utils/*"],
+         "@styles/*": ["styles/*"]
+       }
+     }
+   }
+   ```
+
+   En este ejemplo, estamos creando alias para las carpetas `components`, `utils` y `styles` dentro de la carpeta `src`.

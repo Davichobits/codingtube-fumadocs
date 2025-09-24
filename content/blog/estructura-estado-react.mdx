@@ -17,7 +17,7 @@ El objetivo detrás de los siguientes principios es el de hacer de que el estado
 4. Evitar duplicación en estado.
 5. Evitar anidación excesiva de estado.
 
-## 👉 Agrupar estados redundantes
+## 👉 Agrupar estados relacionados
 
 A veces te encontrarás con escenarios donde tienes que actualizar dos o más estados al mismo tiempo, como por ejemplo cuando trabajas con coordenadas. Podrías crear un estado por cada coordenada de esta forma:
 
@@ -77,6 +77,77 @@ En este caso se recomienda tener un solo estado que represente los tres estados 
 
 Este estado sólo podrá tener uno de estos tres valores: `typing`, `sending` o `send`. De esta forma evitas confundirte entre estados u olvidarte de actualizar alguno de ellos.
 
-<Callout>
-  Si deseas mejorar aún.
-</Callout>
+### Usando Typescript
+
+Se puede mejorar aún más el código anterior usando Typescript. Con Typescript podemos usar `union types`, los mismos que permiten definir un string con valores específicos. Es decir el código anterior quedaría de la siguiente forma:
+
+```ts 
+  type Status: 'typing', 'sending', 'send';
+  const [status, setStatus] = useState<Status>('typing'); // 'typing' - 'sending' - 'send'
+```
+
+Con esto te aseguras también que escribas mal algún estado omitiendo alguna letra por ejemplo.
+
+## 👉 Evitar estados redundantes.
+
+Un ejemplo simple para entender este principio es el siguiente:
+
+```js
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [fullName, setFullName] = useState('');
+```
+
+Se podría pensar que necesitamos un estado para el nombre comppleto (`fullName`), pero en realidad este estado es redundante, ya que podemos obtener el nombre completo a partir de los otros dos estados (`firstName` y `lastName`).
+
+Pero ya pensando en un ejemplo un poco más complejo, analicemos el siguiente código:
+
+```js
+  function ShoppingList({ items }) {
+  const [query, setQuery] = useState("");
+  const [filteredItems, setFilteredItems] = useState(items); // Estado redundante
+
+  function handleSearch(e) {
+    const value = e.target.value;
+    setQuery(value);
+    setFilteredItems(items.filter(item => item.includes(value))); // Estado redundante
+  }
+
+  return (
+    <>
+      <input value={query} onChange={handleSearch} />
+      <ul>
+        {filteredItems.map(item => <li key={item}>{item}</li>)}
+      </ul>
+    </>
+  );
+}
+```
+
+En este caso, el estado `filteredItems` es redundante, ya que podemos obtener los elementos filtrados a partir del estado `query` y la prop `items`.
+
+Lo correcto sería lo siguiente:
+
+```js
+  function ShoppingList({ items }) {
+  const [query, setQuery] = useState("");
+  // const [filteredItems, setFilteredItems] = useState(items);
+
+  function handleSearch(e) {
+    const value = e.target.value;
+    setQuery(value);
+    // setFilteredItems(items.filter(item => item.includes(value)));
+  }
+
+  const filteredItems = items.filter(item => item.includes(query));
+
+  return (
+    <>
+      <input value={query} onChange={handleSearch} />
+      <ul>
+        {filteredItems.map(item => <li key={item}>{item}</li>)}
+      </ul>
+    </>
+  );
+}
+```
