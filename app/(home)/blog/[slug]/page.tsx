@@ -14,14 +14,14 @@ export default async function Page(props: {
   if (!page) notFound();
   const Mdx = page.data.body;
 
-  console.log(page.data.toc);
-
   return (
     <>
-      <div className="container rounded-xl border py-12 max-w-4xl md:px-8">
+      <div className="container rounded-xl border mt-4 py-6 max-w-4xl md:px-8">
         <h1 className="mb-2 text-3xl font-bold">{page.data.title}</h1>
         <p className="mb-4 text-fd-muted-foreground">{page.data.description}</p>
-        <Link href="/blog">Atrás</Link>
+        <div className='flex justify-end'>
+          <Link href="/blog">Atrás</Link>
+        </div>
       </div>
       <article className="container flex flex-col px-4 py-8 max-w-4xl">
         <div className="prose min-w-0">
