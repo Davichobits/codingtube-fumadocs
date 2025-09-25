@@ -1,0 +1,56 @@
+---
+title: Archivos de barril
+description: Aprende a utilizar archivos de barril para simplificar y organizar tus importaciones en proyectos de JavaScript y TypeScript.
+date: 2025-09-25
+author: David Ruiz
+---
+
+Un archivo de barril (barrel file) te permite agrupar múltiples exportaciones en un solo archivo, facilitando las importaciones en otras partes de tu aplicación.
+
+En otras palabras te permite transformar de esto:
+
+```ts title="src/App.ts"
+import { Footer } from './components/footer'
+import { Hero } from './components/hero'
+import { Navbar } from './components/navbar'
+import { Form } from './components/form'
+import { Testimonials } from './components/testimonials'
+```
+
+a esto:
+
+```ts title="src/App.ts"
+import { Footer, Hero, Navbar, Form, Testimonials } from './components'
+``` 
+
+## 1. Crea un archivo de barril
+
+Para crear un archivo de barril, simplemente crea un archivo `index.ts` (o `index.js` si usas Javascript) dentro del directorio que contiene los módulos que deseas agrupar. La estructura de archivos quedaría así:
+
+```
+src/
+├── components/
+│   ├── index.ts     # Archivo de barril
+│   ├── footer.ts
+│   ├── hero.ts
+│   ├── navbar.ts
+│   ├── form.ts
+│   └── testimonials.ts
+└── App.ts
+```
+
+Dentro de este archivo `index.ts`, exporta todos los componentes que deseas agrupar:
+
+```ts title="src/components/index.ts"
+export { Footer } from './footer'
+export { Hero } from './hero'
+export { Navbar } from './navbar'
+export { Form } from './form'
+export { Testimonials } from './testimonials'
+```
+
+y con esto ahora desde `App.ts` puedes importar todos los componentes desde un solo archivo:
+
+```ts title="src/App.ts"
+import { Footer, Hero, Navbar, Form, Testimonials } from './components'
+```
