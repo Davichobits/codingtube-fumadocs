@@ -4,6 +4,10 @@
 
 @theme {
   --color-Hover: #c09eec;
+  --color-Light-Background: #e6e9ef;
+  --color-Dark-Background: #181825;
+  --color-Dark-Text: #cdd6f4;
+  --color-Light-Text: #4b4e68;
 }
 
 .youtube-video{

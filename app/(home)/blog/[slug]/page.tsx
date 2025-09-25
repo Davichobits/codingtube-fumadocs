@@ -25,8 +25,12 @@ export default async function Page(props: {
       </div>
       <article className="container flex flex-col px-4 py-8 max-w-4xl">
         <div className="prose min-w-0">
-          <InlineTOC items={page.data.toc} />
+
+          <span className="relative top-10 left-4 inline-block before:absolute before:-inset-1 before:block before:bg-Light-Background dark:before:bg-Dark-Background">
+            <span className="relative text-Light-Text dark:text-Dark-Text font-bold">Tabla de contenidos</span>
+          </span>
           
+          <InlineTOC className='after:' defaultOpen={true} items={page.data.toc} />
           <Mdx components={defaultMdxComponents} />
         </div>
         <div className="flex flex-col gap-4 text-sm my-16">
