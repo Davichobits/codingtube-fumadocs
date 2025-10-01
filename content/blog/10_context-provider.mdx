@@ -1,0 +1,271 @@
+---
+title: Context Provider en React
+description: Aprende a crear un Context Provider en React con TypeScript para manejar el estado global.
+date: 2025-09-30
+author: David Ruiz
+---
+
+Probablemente te has encontrado con el problema de tener que pasar datos a través de múltiples componentes. Esto se conoce como "prop drilling" y puede hacer que tu código sea difícil de mantener. En esta guía aprenderás cómo resolver este problema usando Context API de React.
+
+## ¿Qué es un Context Provider y por qué lo necesitas?
+
+Imagina que tienes una aplicación con la siguiente estructura de componentes:
+
+```
+App
+ └── Header
+      └── UserMenu
+           └── UserAvatar
+```
+
+Si quieres mostrar la información del usuario en `UserAvatar`, normalmente tendrías que pasar los datos del usuario como props a través de `Header` y `UserMenu`, incluso si estos componentes intermedios no necesitan esa información. Esto es tedioso y hace que tu código sea difícil de mantener.
+
+**Context Provider es la solución a este problema.** Te permite compartir datos a través de todo el árbol de componentes sin tener que pasar props manualmente en cada nivel. Es como tener una "base de datos global" a la que cualquier componente puede acceder cuando lo necesite.
+
+### ¿Cuándo usar Context Provider?
+
+Context Provider es ideal para manejar datos que necesitan ser accesibles en múltiples partes de tu aplicación, como:
+
+- **Información del usuario autenticado** (nombre, email, rol)
+- **Temas** (modo claro/oscuro)
+- **Idioma de la aplicación** (español, inglés, etc.)
+- **Configuraciones globales**
+- **Estado del carrito de compras**
+
+## Caso práctico: Sistema de gestión de usuarios
+
+Para este tutorial, vamos a crear un sistema completo para manejar la información del usuario en nuestra aplicación. El usuario tendrá los siguientes datos:
+
+```ts
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+```
+
+## Paso 1: Crear el Contexto
+
+El primer paso es crear el contexto, que es como definir la "forma" de los datos que vamos a compartir. Piensa en esto como crear un contrato que especifica qué información estará disponible.
+
+```tsx title="src/contexts/user-context.ts"
+import { createContext } from 'react';
+
+// Definimos la estructura de nuestro usuario
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+// Definimos qué datos y funciones estarán disponibles en el contexto
+interface UserContextType {
+  user: User | null;  // El usuario actual (puede ser null si no hay usuario)
+  setUser: (user: User | null) => void;  // Función para actualizar el usuario
+}
+
+// Creamos el contexto con un valor inicial de null
+export const UserContext = createContext<UserContextType | null>(null);
+```
+
+**¿Qué está pasando aquí?**
+
+- `User`: Define cómo se ve un usuario en nuestra aplicación
+- `UserContextType`: Define qué datos y funciones compartiremos (el usuario y una función para actualizarlo)
+- `createContext`: Es la función de React que crea nuestro contexto
+- Iniciamos con `null` porque al principio no tenemos ningún valor
+
+## Paso 2: Crear el Provider
+
+El Provider es un componente especial que "provee" o "proporciona" los datos a todos los componentes hijos que lo necesiten. Es como un almacén que guarda los datos y los distribuye cuando se los piden.
+
+```tsx title="src/contexts/user-provider.tsx"
+import { useState, type ReactNode } from 'react';
+import { UserContext, type User  } from './user-context';
+
+// Definimos qué props acepta nuestro provider
+interface UserProviderProps  {
+  children: ReactNode;  // Los componentes hijos que envolverá el provider
+}
+
+export const UserProvider = ({ children }: UserProviderProps ) => {
+  // Creamos un estado local para manejar el usuario
+  // Inicialmente es null porque no hay usuario logueado
+  const [user, setUser] = useState<User | null>(null);
+
+  return (
+    // UserContext.Provider es el componente que comparte los datos
+    // value contiene los datos que queremos compartir
+    <UserContext.Provider value={{ user, setUser }}>
+      {children}
+    </UserContext.Provider>
+  );
+};
+```
+
+**¿Qué está pasando aquí?**
+
+- `useState`: Crea un estado local para guardar el usuario actual
+- `children`: Son todos los componentes que estarán dentro del provider
+- `value={{ user, setUser }}`: Los datos que compartimos con toda la aplicación
+- El provider actúa como un "contenedor" que envuelve otros componentes
+
+## Paso 3: Crear un Hook personalizado
+
+Los hooks personalizados son funciones que encapsulan lógica reutilizable. En este caso, creamos un hook que facilita el acceso al contexto y además verifica que estés usándolo correctamente.
+
+```tsx title="src/hooks/use-user.ts"
+import { useContext } from 'react';
+import { UserContext } from '../contexts/user-context';
+
+export const useUser = () => {
+  // useContext obtiene el valor actual del contexto
+  const context = useContext(UserContext);
+  
+  // Si el contexto es null, significa que el hook se está usando
+  // fuera del provider, lo cual es un error
+  if (!context) {
+    throw new Error('useUser debe ser usado dentro de un UserProvider');
+  }
+  
+  // Retornamos el contexto para que el componente lo pueda usar
+  return context;
+};
+```
+
+**¿Por qué crear un hook personalizado?**
+
+1. **Validación automática**: Si alguien intenta usar `useUser` fuera del provider, obtendrá un error claro
+2. **Código más limpio**: En lugar de escribir `useContext(UserContext)` cada vez, solo escribes `useUser()`
+3. **Tipado automático**: TypeScript sabrá exactamente qué datos están disponibles
+
+## Paso 4: Envolver tu aplicación con el Provider
+
+Ahora necesitas envolver tu aplicación con el `UserProvider` para que todos los componentes tengan acceso al contexto. Esto generalmente se hace en el archivo principal de tu aplicación.
+
+```tsx title="src/App.tsx"
+import { UserProvider } from './contexts/user-provider';
+import UserProfile from './components/UserProfile';
+import Header from './components/Header';
+
+function App() {
+  return (
+    <UserProvider>
+      {/* Todos los componentes aquí dentro pueden usar useUser */}
+      <Header />
+      <UserProfile />
+      {/* Más componentes... */}
+    </UserProvider>
+  );
+}
+
+export default App;
+```
+
+**Punto importante**: Solo los componentes que estén dentro de `<UserProvider>` podrán acceder al contexto del usuario. Si intentas usar `useUser` fuera del provider, obtendrás un error.
+
+## Paso 5: Usar el Contexto en tus componentes
+
+Ahora viene la parte divertida: ¡usar el contexto! Cualquier componente dentro del `UserProvider` puede acceder a los datos del usuario y actualizarlos.
+
+```tsx title="src/components/UserProfile.tsx"
+import { useUser } from '../hooks/use-user';
+
+const UserProfile = () => {
+  // Obtenemos el usuario y la función para actualizarlo
+  const { user, setUser } = useUser();
+
+  // Función para simular la actualización del usuario
+  const handleUpdateUser = () => {
+    setUser({ 
+      id: 1, 
+      name: 'Juan Pérez', 
+      email: 'juan@ejemplo.com' 
+    });
+  };
+
+  // Función para cerrar sesión (limpiar el usuario)
+  const handleLogout = () => {
+    setUser(null);
+  };
+
+  return (
+    <div className="user-profile">
+      <h1>Perfil de Usuario</h1>
+      
+      {/* Mostramos los datos si hay un usuario */}
+      {user ? (
+        <div className="user-info">
+          <p><strong>ID:</strong> {user.id}</p>
+          <p><strong>Nombre:</strong> {user.name}</p>
+          <p><strong>Email:</strong> {user.email}</p>
+          <button onClick={handleLogout}>Cerrar Sesión</button>
+        </div>
+      ) : (
+        <div>
+          <p>No hay información del usuario disponible</p>
+          <button onClick={handleUpdateUser}>Iniciar Sesión</button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default UserProfile;
+```
+
+## Ejemplo adicional: Componente Header
+
+Veamos otro ejemplo para demostrar cómo múltiples componentes pueden acceder al mismo contexto:
+
+```tsx title="src/components/Header.tsx"
+import { useUser } from '../hooks/use-user';
+
+const Header = () => {
+  const { user } = useUser();
+
+  return (
+    <header className="app-header">
+      <h1>Mi Aplicación</h1>
+      {user ? (
+        <div className="user-greeting">
+          <span>Hola, {user.name}!</span>
+        </div>
+      ) : (
+        <span>Por favor, inicia sesión</span>
+      )}
+    </header>
+  );
+};
+
+export default Header;
+```
+
+**¿Ves la magia?** Tanto `UserProfile` como `Header` pueden acceder a los mismos datos del usuario sin que tengamos que pasar props entre ellos. Cuando actualizas el usuario en `UserProfile`, automáticamente se actualiza en `Header` también.
+
+## Ventajas de usar Context Provider
+
+1. **Evita prop drilling**: No necesitas pasar props a través de múltiples niveles
+2. **Código más limpio**: Los componentes solo reciben los datos que realmente necesitan
+3. **Facilita el mantenimiento**: Cambiar la estructura de datos es más sencillo
+4. **Reutilización**: El mismo contexto puede ser usado por muchos componentes
+5. **Separación de responsabilidades**: La lógica del estado está centralizada
+
+## Consideraciones importantes
+
+### Rendimiento
+
+Context Provider es excelente para datos que no cambian frecuentemente. Si tu contexto se actualiza constantemente (por ejemplo, en cada tecla presionada), todos los componentes que lo usan se volverán a renderizar. Para estos casos, considera usar librerías como Zustand o Redux.
+
+### Organización del código
+
+Para aplicaciones grandes, es recomendable crear múltiples contextos en lugar de uno solo gigante. Por ejemplo:
+
+- `UserContext` para información del usuario
+- `ThemeContext` para el tema de la aplicación
+- `CartContext` para el carrito de compras
+
+### TypeScript
+
+El uso de TypeScript (como en este tutorial) te proporciona autocompletado y previene muchos errores. Es altamente recomendable usarlo en proyectos de producción. Si aún no manejas TypeScript, te recomiendo aprenderlo [aquí](https://www.udemy.com/course/aprende-typescript-paso-a-paso-curso-desde-cero/?couponCode=CODINGTUBER-OCTUBRE).
+

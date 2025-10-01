@@ -47,7 +47,7 @@ export const baseOptions: BaseLayoutProps = {
         {
           text: 'Typescript',
           description: 'Paso a paso desde cero.',
-          url: 'https://www.udemy.com/course/aprende-typescript-paso-a-paso-curso-desde-cero/?couponCode=CODINGTUBER',
+          url: 'https://www.udemy.com/course/aprende-typescript-paso-a-paso-curso-desde-cero/?couponCode=CODINGTUBER-OCTUBRE',
         },
       ],
     },

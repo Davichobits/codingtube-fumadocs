@@ -16,17 +16,23 @@ export default async function Page(props: {
 
   return (
     <>
-      <div className="container rounded-xl border mt-4 py-6 max-w-4xl md:px-8">
-        <h1 className="mb-2 text-3xl font-bold">{page.data.title}</h1>
-        <p className="mb-4 text-fd-muted-foreground">{page.data.description}</p>
-        <div className='flex justify-end'>
+      <div className="container mt-4 py-6 max-w-3xl md:px-8 ">
+        <div className='flex justify-end mb-4 hover:text-Hover'>
           <Link href="/blog">Atrás</Link>
         </div>
+        <h1 className="mb-2 text-3xl font-bold text-center">{page.data.title}</h1>
+        <p className="text-fd-muted-foreground text-center">{page.data.description}</p>
       </div>
-      <article className="container flex flex-col px-4 py-8 max-w-4xl">
+      <article className="container flex flex-col px-4 py-2 max-w-3xl lg:px-0">
         <div className="prose min-w-0">
-          <InlineTOC items={page.data.toc} />
-          
+
+          <div className=''>
+            <span className="relative top-10 left-4 inline-block before:absolute before:-inset-1 before:block before:bg-Light-Background dark:before:bg-Dark-Background pointer-events-none">
+              <span className="relative text-Light-Text dark:text-Dark-Text font-bold">Tabla de contenidos</span>
+            </span>
+            
+            <InlineTOC className='' defaultOpen={true} items={page.data.toc} />
+          </div>
           <Mdx components={defaultMdxComponents} />
         </div>
         <div className="flex flex-col gap-4 text-sm my-16">

@@ -15,18 +15,27 @@ export default function Home() {
       <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
         {posts.map((post, index) => (
             <article key={post.url} className='relative flex gap-5'>
-              <Image
-                className=''
-                src={`/assets/blog-images/blog${posts.length - index}.jpg`}
-                width={64 * 2}
-                height={96 * 2}
-                alt='code'
-              />
+              <Link
+                  href={post.url}
+                  className='block min-w-[128px] '
+                >
+                  <Image
+                    className='rounded-md'
+                    
+                    src={`/assets/blog-images/blog${posts.length - index}.jpg`}
+                    width={64 * 2}
+                    height={96 * 2}
+                    alt='code'
+                  />
+                </Link>
+              
 
               <div className='flex flex-col'>
-                <p className='text-4xl text-Hover font-extrabold'>{`0${
-                  posts.length - index
-                }`}</p>
+                <p className='text-4xl text-Hover font-extrabold'>
+                  {posts.length - index < 10
+                  ? `0${posts.length - index}`
+                  : posts.length - index}
+                </p>
                 <Link
                   href={post.url}
                   className='text-xl font-semibold mb-2 hover:text-Hover'

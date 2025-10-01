@@ -23,7 +23,7 @@ a esto:
 import { Footer, Hero, Navbar, Form, Testimonials } from './components'
 ``` 
 
-## 1. Crea un archivo de barril
+## Crea un archivo de barril
 
 Para crear un archivo de barril, simplemente crea un archivo `index.ts` (o `index.js` si usas Javascript) dentro del directorio que contiene los módulos que deseas agrupar. La estructura de archivos quedaría así:
 
@@ -54,3 +54,24 @@ y con esto ahora desde `App.ts` puedes importar todos los componentes desde un s
 ```ts title="src/App.ts"
 import { Footer, Hero, Navbar, Form, Testimonials } from './components'
 ```
+## Ventajas de usar archivos de barril
+
+1. **Simplificación de importaciones**: Reduce la cantidad de líneas de importación en tus archivos, haciendo que el código sea más limpio y fácil de leer.
+
+2. **Mejora la organización del código**: Agrupar exportaciones relacionadas en un solo archivo ayuda a mantener una estructura de proyecto más ordenada.
+
+3. **Facilita la refactorización**: Si necesitas cambiar la ubicación de un módulo, solo necesitas actualizar el archivo de barril en lugar de modificar múltiples archivos de importación.
+
+4. **Mejora la legibilidad**: Al reducir la cantidad de importaciones en un archivo, el código se vuelve más fácil de leer y entender.
+
+5. **Facilita la navegación**: Con un archivo de barril, es más sencillo encontrar y acceder a los módulos relacionados, ya que todos están agrupados en un solo lugar.
+
+## Consideraciones
+
+- **Evita ciclos de dependencia**: Asegúrate de que los archivos de barril no creen ciclos de dependencia, ya que esto puede causar problemas en la resolución de módulos.
+
+- **No abuses de los archivos de barril**: Aunque son útiles, no es necesario crear un archivo de barril para cada directorio. Úsalos cuando realmente mejoren la organización y legibilidad del código.
+
+## Video explicativo
+
+<iframe className='youtube-video' src="https://www.youtube.com/embed/tgxgiMQLw-4?si=Zm7AIu3CY-njeAUw" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
