@@ -31,9 +31,11 @@ export default function Home() {
               
 
               <div className='flex flex-col'>
-                <p className='text-4xl text-Hover font-extrabold'>{`0${
-                  posts.length - index
-                }`}</p>
+                <p className='text-4xl text-Hover font-extrabold'>
+                  {posts.length - index < 10
+                  ? `0${posts.length - index}`
+                  : posts.length - index}
+                </p>
                 <Link
                   href={post.url}
                   className='text-xl font-semibold mb-2 hover:text-Hover'
