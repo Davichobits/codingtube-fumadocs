@@ -5,55 +5,198 @@ date: 2025-07-14
 author: David Ruiz
 ---
 
-Para configurar alias en un proyecto de React con TypeScript y Vite, sigue estos pasos:
+Si has trabajado en proyectos React medianos o grandes, probablemente te has encontrado con importaciones como estas:
 
-## 1. Configura los alias en `tsconfig.app.json`:
+```tsx
+import { Button } from '../../../components/ui/Button';
+import { useAuth } from '../../../../hooks/useAuth';
+import { formatDate } from '../../../utils/date';
+```
 
-Abre el archivo `tsconfig.app.json` en la raíz de tu proyecto y agrega la configuración de paths dentro del objeto `compilerOptions`. Aquí tienes un ejemplo:
+Estas rutas relativas con múltiples `../` son difíciles de leer, propensas a errores y complicadas de mantener cuando reorganizas tu estructura de carpetas. La solución son los **alias de rutas**.
 
-```json
+## ¿Qué son los alias de rutas?
+
+Los alias de rutas te permiten crear atajos para importar archivos sin usar rutas relativas. En lugar de escribir `../../../components/Button`, puedes escribir simplemente `@components/Button`.
+
+### Ventajas de usar alias
+
+- **Código más limpio**: Importaciones más legibles y fáciles de entender
+- **Fácil refactorización**: Si mueves un archivo, no necesitas actualizar todas las rutas relativas
+- **Menos errores**: No más confusiones con `../` o `../../`
+- **Mejor organización**: Estructura clara de dónde provienen las importaciones
+- **Autocompletado mejorado**: Los editores pueden sugerir mejor las rutas
+
+## Paso 1: Configurar TypeScript
+
+El primer paso es configurar TypeScript para que reconozca los alias. Esto permite que el compilador de TypeScript y tu editor (como VS Code) entiendan las rutas personalizadas.
+
+### Ubicar el archivo de configuración
+
+Los proyectos con Vite generalmente tienen dos archivos de configuración de TypeScript:
+
+- `tsconfig.json` - Configuración base del proyecto
+- `tsconfig.app.json` - Configuración específica para la aplicación
+
+**Abre el archivo `tsconfig.app.json`** (o `tsconfig.json` si no existe el primero) y agrega la configuración de paths:
+
+```json title="tsconfig.app.json"
 {
   "compilerOptions": {
-    /* aliases */
-    "baseUrl": "./src",
-    "paths": {
-      "@components/*": ["components/*"],
-    }
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    // ... otras opciones ...
+    
+    /* Configuración de alias */
+    "baseUrl": "./src", // [!code ++]
+    "paths": { // [!code ++]
+      "@components/*": ["components/*"], // [!code ++]
+      "@hooks/*": ["hooks/*"], // [!code ++]
+      "@utils/*": ["utils/*"], // [!code ++]
+      "@services/*": ["services/*"], // [!code ++]
+      "@assets/*": ["assets/*"], // [!code ++]
+      "@types/*": ["types/*"] // [!code ++]
+    } // [!code ++]
   }
 }
 ```
-<Callout>
-  Si tu proyecto no tiene un archivo `tsconfig.app.json`, puedes buscar un archivo `tsconfig.json` o crear uno nuevo en la raíz del proyecto.
-</Callout>
 
-## 2. Configura Vite para reconocer los alias:
+### Explicación de la configuración
 
-Abre el archivo `vite.config.ts` en la raíz de tu proyecto y agrega la siguiente configuración:
+- **`baseUrl`**: Define el directorio base desde donde se resuelven las rutas. En este caso, `./src` significa que todas las rutas comenzarán desde la carpeta `src`.
 
-```ts
+- **`paths`**: Un objeto que mapea los alias a las rutas reales:
+  - `@components/*` → `src/components/*`
+  - `@hooks/*` → `src/hooks/*`
+  - El asterisco `*` significa "cualquier cosa después de este punto"
+
+### Ejemplo de uso después de configurar
+
+```tsx
+// Antes (rutas relativas)
+import { Button } from '../../../components/ui/Button';
+import { useAuth } from '../../../../hooks/useAuth';
+
+// Después (con alias)
+import { Button } from '@components/ui/Button';
+import { useAuth } from '@hooks/useAuth';
+```
+
+<Callout type="info" title="Nota">
+Si tu proyecto no tiene un archivo `tsconfig.app.json`, busca `tsconfig.json` en la raíz del proyecto. Si tampoco existe, crea uno nuevo con la configuración mínima necesaria.
+ </Callout>
+
+## Paso 2: Configurar Vite
+
+TypeScript ahora conoce los alias, pero Vite (el bundler) también necesita saberlo para poder resolver correctamente las importaciones durante el desarrollo y la compilación.
+
+### Instalar dependencias necesarias
+
+Primero, instala los tipos de Node.js, que son necesarios para usar el módulo `path`:
+
+```npm
+npm install -D @types/node
+```
+
+### Configurar vite.config.ts
+
+Abre el archivo `vite.config.ts` en la raíz de tu proyecto y actualízalo con la siguiente configuración:
+
+```ts title="vite.config.ts"
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import path from 'path'
+import path from 'path'; // [!code ++]
 
 export default defineConfig({
   plugins: [react()],
-  resolve: {
-    alias: {
-      "@components": path.resolve(__dirname, "src/components"),
-    },
-  },
+  resolve: { // [!code ++]
+    alias: { // [!code ++]
+      '@components': path.resolve(__dirname, './src/components'), // [!code ++]
+      '@hooks': path.resolve(__dirname, './src/hooks'), // [!code ++]
+      '@utils': path.resolve(__dirname, './src/utils'), // [!code ++]
+      '@services': path.resolve(__dirname, './src/services'), // [!code ++]
+      '@assets': path.resolve(__dirname, './src/assets'), // [!code ++]
+      '@types': path.resolve(__dirname, './src/types'), // [!code ++]
+    }, // [!code ++]
+  }, // [!code ++]
 });
 ```
 
-Es necesario instalar los tipos de node para poder reconocer la importación de `resolve` con el siguiente comando:
+### Desglose de la configuración
 
-```bash
-npm i -D @types/node
+- **`import path from 'path'`**: Módulo de Node.js para trabajar con rutas de archivos
+
+- **`resolve.alias`**: Objeto que define los alias para Vite:
+  - Cada clave es el alias (por ejemplo, `@components`)
+  - Cada valor es la ruta absoluta a la carpeta correspondiente
+
+- **`path.resolve(__dirname, './src/components')`**: 
+  - `__dirname` es la ruta del directorio actual (donde está vite.config.ts)
+  - `path.resolve()` crea una ruta absoluta combinando ambas partes
+
+### ¿Por qué necesitamos configurar tanto TypeScript como Vite?
+
+Es una pregunta común. La respuesta es simple:
+
+- **TypeScript**: Necesita conocer los alias para validar tipos y proporcionar autocompletado en tu editor
+- **Vite**: Necesita conocer los alias para resolver las importaciones cuando ejecuta o compila tu aplicación
+
+Ambos trabajan en diferentes etapas del proceso de desarrollo, por eso ambos necesitan la configuración.
+
+## Paso 3: Configurar VS Code para autoimportaciones
+
+Visual Studio Code puede autocompletar y auto-importar módulos automáticamente. Para que use los alias que configuraste en lugar de rutas relativas, necesitas ajustar una configuración.
+
+### Opción A: Configuración global (para todos tus proyectos)
+
+1. Abre VS Code
+2. Presiona `Ctrl + ,` (o `Cmd + ,` en Mac) para abrir la configuración
+3. Busca: `typescript.preferences.importModuleSpecifier`
+4. Cambia el valor de `shortest` a `non-relative`
+
+### Opción B: Configuración por proyecto (recomendado)
+
+Crea o edita el archivo `.vscode/settings.json` en la raíz de tu proyecto:
+
+```json title=".vscode/settings.json"
+{
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "javascript.preferences.importModuleSpecifier": "non-relative"
+}
 ```
 
-## 3. Configura las autoimportaciones de VSC:
+Esta configuración es mejor porque:
+- Solo afecta a este proyecto específico
+- Se comparte con todo el equipo a través de Git
+- No interfiere con otros proyectos que puedan tener diferentes convenciones
 
-En visual studio code, abre la configuración (Ctrl + ,) y busca `typescript.preferences.importModuleSpecifier`. Cambia el valor a `non-relative` para que las autoimportaciones utilicen los alias configurados.
+### ¿Qué hace esta configuración?
 
-## 4. Reinicia el servidor de desarrollo.
-Después de realizar estos cambios, asegúrate de reiniciar el servidor de desarrollo para que los cambios surtan efecto.
+Cuando VS Code importa automáticamente un módulo (por ejemplo, al usar "Quick Fix" o autocompletado), usará los alias configurados en lugar de rutas relativas.
+
+**Antes de la configuración:**
+```tsx
+import { Button } from '../../../components/ui/Button'; // ❌ Usa rutas relativas
+```
+
+**Después de la configuración:**
+```tsx
+import { Button } from '@components/ui/Button'; // ✅ Usa alias
+```
+
+## Paso 4: Reiniciar el servidor de desarrollo
+
+Después de realizar todos estos cambios, es crucial reiniciar el servidor de desarrollo de Vite para que los cambios surtan efecto.
+
+1. Detén el servidor actual (presiona `Ctrl + C` en la terminal)
+2. Inicia nuevamente el servidor:
+
+```npm
+npm run dev
+```
+
+### ¿Por qué es necesario reiniciar?
+
+Vite carga la configuración al iniciar. Los cambios en `vite.config.ts` no se aplican en caliente, por lo que necesitas un reinicio completo para que reconozca los nuevos alias.
